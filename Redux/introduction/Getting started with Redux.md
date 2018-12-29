@@ -11,7 +11,7 @@ npm install --save redux
 ```
 
 **Basic Example**
-  
+
 The whole state of your app is store in an object tree inside a single _store_. The only way to change the tree is to emit an _action_, an object describing what happened. To specify how the actions transform the state tree, you write pure _reducers_.
 
 :fire: That's it!
@@ -31,7 +31,7 @@ import { createStore } from 'redux'
  * follows a different convention (such as function maps) if it makes sense for your
  * project.
  */
- 
+
 function counter(state = 0, action) {
   switch (action.type) {
     case 'INCREMENT':
@@ -62,3 +62,7 @@ store.dispatch({ type: 'INCREMENT' })
 store.dispatch({ type: 'DECREMENT' })
 // 1
 ```
+
+Instead of mutating the state directly, you specify the mutations you want to happen with plain objects called _actions_. Then you write a special function called _reducer_ to decide how every action transforms the entire application's state.
+
+In a typical Redux app, there is just a single store with a single root reducing function. As your app grows, you split the root reducer into smaller reducers independently opeating on the differents parts of the state tree. This is exactly like how there is just one root component in a :zap: React app, but it is composed out of many small components.
