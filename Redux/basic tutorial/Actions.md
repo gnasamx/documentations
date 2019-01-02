@@ -1,11 +1,13 @@
 :coffee: :snowman:
 
+### Actions 
+
 Actions are payloads of information that send data from your application to your state. They are the _only_ source of information for the store. You send them to the store using `store.despatch()`.
 
 Here's an example action which represents adding a new todo item:
 
 ```javascript
-const ADD_TODO = 'ADD_TODO
+const ADD_TODO = "ADD_TODO";
 ```
 
 ```javascript
@@ -82,6 +84,7 @@ The `dispatch()` function can be accessed directly from the store as `store.disp
 Action creators can also be asynchronous and have side-effects.
 
 :star:
+
 ### Source code
 
 action.js
