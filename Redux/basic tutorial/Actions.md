@@ -2,7 +2,7 @@
 
 ### Actions 
 
-Actions are payloads of information that send data from your application to your state. They are the _only_ source of information for the store. You send them to the store using `store.despatch()`.
+Actions are payloads of information that send data from your application to your state. They are the _only_ source of information for the store. You send them to the store using `store.dispatch()`.
 
 Here's an example action which represents adding a new todo item:
 
