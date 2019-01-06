@@ -1,5 +1,7 @@
 :coffee: :star2:
 
+### Reducers
+
 Reducers specify how the application's state changes in response to actions sent to the store. Remember that actions only describe what _happened_, but don't describe how the application's state changes.
 
 ### Designing the state shape
@@ -370,6 +372,8 @@ All `combineReducers()` does is generate a function that calls your reducers **w
 :star:
 
 ### Source code
+
+reducers.js
 
 ```js
 import { combineReducers } from "redux";

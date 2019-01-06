@@ -1,5 +1,7 @@
 :coffee: :zap:
 
+### Data Flow
+
 Redux architecture revolves around a **strict unidirectional data flow**.
 
 This means that all data in an application follows the same lifecycle pattern, making the logic of your app more predictable and easier to understand. It also encourages data normalization, so that you don't end up with multiple, independent copies of the same data that are unaware of one another.
