@@ -50,7 +50,7 @@ Note that a reducer is _pure_ function. It only _computes_ the next state. It sh
 
 3. **The root reducer may combine the output of multiple reducers into single state tree**
 
-How you structure the root reducer is completely up to you. Redux ships with a `combineReducers() helper function, useful for "splitting" the root reducer into separate functions that each manages one branch of state tree.
+How you structure the root reducer is completely up to you. Redux ships with a `combineReducers()` helper function, useful for "splitting" the root reducer into separate functions that each manages one branch of state tree.
 
 Here's how `combineReducers()` works. Let's say you have two reducers, one for a list of todos, and another for the currently selected setting:
 
@@ -93,4 +93,4 @@ While `combineReducers()` is a handy helper utility, you don't have to use it; f
 
 This new tree is now the next state of your app! Every listener registered with `store.dispatch(listener)` will now be invoked; listeners may call `store.getState()` to get the current state.
 
-Now, the UI can be updated to reflect the new state. If you use bindings like `React Redux`, this is the point at which `component.setState(newState) is called.
+Now, the UI can be updated to reflect the new state. If you use bindings like `React Redux`, this is the point at which `component.setState(newState)` is called.

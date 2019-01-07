@@ -9,7 +9,7 @@ That said, Redux works especially will with libraries like React because they le
 ### Installing React Redux
 
 ```js
-nom install --save react-redux
+npm install --save react-redux
 ```
 
 ### Presentational and Container Components

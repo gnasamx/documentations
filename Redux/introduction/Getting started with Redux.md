@@ -16,7 +16,7 @@ The whole state of your app is store in an object tree inside a single _store_. 
 
 :fire: That's it!
 
-```javasctipt
+```js
 import { createStore } from 'redux'
 
 /**
@@ -65,4 +65,4 @@ store.dispatch({ type: 'DECREMENT' })
 
 Instead of mutating the state directly, you specify the mutations you want to happen with plain objects called _actions_. Then you write a special function called _reducer_ to decide how every action transforms the entire application's state.
 
-In a typical Redux app, there is just a single store with a single root reducing function. As your app grows, you split the root reducer into smaller reducers independently opeating on the differents parts of the state tree. This is exactly like how there is just one root component in a :zap: React app, but it is composed out of many small components.
+In a typical Redux app, there is just a single store with a single root reducing function. As your app grows, you split the root reducer into smaller reducers independently operating on the different parts of the state tree. This is exactly like how there is just one root component in a :zap: React app, but it is composed out of many small components.
