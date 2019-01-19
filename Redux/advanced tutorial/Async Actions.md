@@ -207,7 +207,7 @@ function selectedSubreddit(store = "reactjs", action) {
 function posts(
   state = {
     isFetching: false,
-    didInvalidate: flase,
+    didInvalidate: false,
     items: []
   },
   action
@@ -334,7 +334,7 @@ export function fetchPosts(subreddit) {
 }
 ```
 
-index.ja
+index.js
 
 ```js
 import thunkMiddleware from "redux-thunk";
