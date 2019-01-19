@@ -288,7 +288,7 @@ We can still define these special thunk actions creators inside our `action.js` 
 action.js(Asynchronous)
 
 ```js
-import fetch from 'cross-fetch`;
+import fetch from `cross-fetch`;
 
 export const REQUEST_POSTS = 'REQUEST_POSTS'
 function requestPosts(subreddit) {
