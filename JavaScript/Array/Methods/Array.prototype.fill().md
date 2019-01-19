@@ -39,6 +39,8 @@ arr.fill(value[, start[, end]])
 
 The modified array
 
+---
+
 ### :books: Description
 
 The `fill` method takes up to three arguments `value`, `start` and `end`, The `start` and `end` arguments are optional with default value of 0 and the `length` of `this` object.
@@ -50,6 +52,8 @@ If `start` is negative, it is treated as `length+start` where `length` is the le
 `fill` is a mutable method, it will change `this` object itself, and it, not just return a copy of it.
 
 When `fill` gets passed an object, it will copy the reference and fill the array with references to that object.
+
+---
 
 ### :coffee: Examples
 
