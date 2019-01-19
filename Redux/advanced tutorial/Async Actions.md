@@ -278,3 +278,154 @@ return Object.assign({}, state, nextState);
 Remember that reducer are just functions, so you can use functional composition composition and higher order function as much as you feel comfortable.
 
 ### Async Action Creators
+
+Finally, how do we use the synchronous action creators ew defined earlier together with network request? The standard way to do it with Redux is to use Redux Thunk middleware. It comes in a separate package called `redux-thunk`. We'll explain how middleware works in general later; for there is just one important thing you need to know; by using this specific middleware, an action creator can return a function instead of an object. This way, the action creators becomes thunk.
+
+When an action creator returns a function, that function will get executed by Redux Thunk middleware. This function doesn't need to be pure; it is thus allowed to have side effects, including executing asynchronous API calls. The function can also dispatch actions-like those synchronous actions we defined earlier.
+
+We can still define these special thunk actions creators inside our `action.js` file:
+
+action.js(Asynchronous)
+
+```js
+import fetch from 'cross-fetch`;
+
+export const REQUEST_POSTS = 'REQUEST_POSTS'
+function requestPosts(subreddit) {
+  return {
+    type: REQUEST_POSTS,
+    subreddit
+  }
+}
+
+export const RECEIVE_POSTS = 'RECEIVE_POSTS'
+function receivePosts(subreddit, json) {
+  return
+  type: RECEIVE_POSTS,
+  subreddit,
+  posts: json.data.children.map(child => child.data),
+  receivedAt: Date.now()
+}
+
+export const INVALIDATE_SUBREDDIT = 'INVALIDATE_SUBREDDIT'
+export function invalidateSubreddit(subreddit) {
+  return  {
+    type: INVALIDATE_SUBREDDIT,
+    subreddit
+  }
+}
+
+// Meet our first thunk action creator!
+// Though its insides are different, you would use it just like any other action creator:
+// store.dispatch(fetchPosts('reactjs'))
+export function fetchPosts(subreddit) {
+  return function(dispatch) {
+    dispatch(requestPosts(subreddit));
+
+    return fetch(`https://www.reddit.com/r/${subreddit}.json`)
+      .then(
+        response => response.json(),
+        error => console.log('An error occurred.', error)
+      )
+      .then(json =>
+        dispatch(receivePosts(subreddit, json))
+      )
+  }
+}
+```
+
+index.ja
+
+```js
+import thunkMiddleware from "redux-thunk";
+import { createLogger } from "redux-logger";
+import { createStore, applyMiddleware } from "redux";
+import { selectSubreddit, fetchPosts } from "./actions";
+import rootReducer from "./reducers";
+
+const loggerMiddleware = createLogger();
+
+const store = createStore(
+  rootReducer,
+  applyMiddleware(thunkMiddleware, loggerMiddleware)
+);
+
+store.dispatch(selectSubreddit("reactjs"));
+store.dispatch(fetchPosts("reactjs").then(() => console.log(store.getState())));
+```
+
+The nice thing about thunks is that they can dispatch results of each other.
+
+actions.js(with `fetch`)
+
+```js
+import fetch from "cross-fetch";
+
+export const REQUEST_POSTS = "REQUEST_POSTS";
+function requestPosts(subreddit) {
+  return {
+    type: REQUEST_POSTS,
+    subreddit
+  };
+}
+
+export const RECEIVE_SUBREDDIT = "RECEIVE_SUBREDDIT";
+function receiverPosts(subreddit, json) {
+  return {
+    type: RECEIVE_SUBREDDIT,
+    subreddit,
+    posts: json.data.children.map(child => child.data),
+    receivedAt: Date.now()
+  };
+}
+
+export const INVALIDATE_SUBREDDIT = "INVALIDATE_SUBREDDIT";
+export function invalidateSubreddit(subreddit) {
+  return {
+    type: INVALIDATE_SUBREDDIT,
+    subreddit
+  };
+}
+
+function fetchPosts(subreddit) {
+  return dispatch => {
+    dispatch(requestPosts(subreddit));
+    return fetch("https://www.reddit.com/r/${subreddit}.json")
+      .then(response => response.json())
+      .then(json => dispatch(receivePosts(subreddit, json)));
+  };
+}
+
+function shouldFetchPosts(state, subreddit) {
+  const posts = state.postsBySubReddit[subreddit];
+  if (!posts) {
+    return true;
+  } else if(posts.isFetching) {
+    return false;
+  } els {
+    return posts.didInvalidate
+  }
+}
+
+export function fetchPostsIfNeeded(subreddit) {
+  return (dispatch, getState) => {
+    if (shouldFetchPosts(getState(), subreddit)) {
+      return dispatch(fetchPosts(subreddit))
+    } else {
+      return Promise.resolve()
+    }
+  }
+}
+```
+
+This lets us write more sophisticated async flow gradually, while the consuming code can stay pretty much the same:
+
+index.js
+
+```js
+store
+  .dispatch(fetchPostsIfNeeded("reactjs"))
+  .then(() => console.log(store.getState()));
+```
+
+> **Note** Server Rendering: Async action creators are especially convenient for server rendering. You can create a store, dispatch async action creator that dispatches other async creators to fetch data for a while section of your app, and only render after Promise it returns, completes. Then your store will already be hydrated with the state you need before.
