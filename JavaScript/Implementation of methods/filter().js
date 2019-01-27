@@ -1,6 +1,6 @@
 'use strict'
 
-Array.prototype.myFiler = function(callback, context) {
+Array.prototype.myFilter = function(callback, context) {
   const arr = []
   for (let i = 0; i < this.length; i++) {
     if (callback.call(context, this[i], i, this)) {
@@ -11,11 +11,11 @@ Array.prototype.myFiler = function(callback, context) {
 }
 
 const numbers = [1, 10, 15, 18, 20, 34]
-const filteredNumbers = numbers.myFiler(function(f) {
+const filteredNumbers = numbers.myFilter(function(f) {
   return f < 15
 })
 console.log(filteredNumbers)
 //  [1, 10]
 
-console.log([1, undefined, null, 0, true].myFiler(f => f === true))
+console.log([1, undefined, null, 0, true].myFilter(f => f === true))
 // [true]
