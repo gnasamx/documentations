@@ -39,10 +39,14 @@ default value then the whole array will be searched.
 
 The first index of the element in the array; -1 if not found.
 
+---
+
 ### :books: Description
 
 `indexOf()` compares `searchElement` to elements of the Array using strict
 equality.
+
+---
 
 ### Examples
 
@@ -73,22 +77,22 @@ console.log(indices)
 // [0, 2, 4]
 ```
 
-
 **Finding if an element exists in the array or not and updating the array**
+
 ```js
-function updateVegetablesCollection (veggies, veggie) {
-    if (veggies.indexOf(veggie) === -1) {
-        veggies.push(veggie);
-        console.log('New veggies collection is : ' + veggies);
-    } else if (veggies.indexOf(veggie) > -1) {
-        console.log(veggie + ' already exists in the veggies collection.');
-    }
+function updateVegetablesCollection(veggies, veggie) {
+  if (veggies.indexOf(veggie) === -1) {
+    veggies.push(veggie)
+    console.log('New veggies collection is : ' + veggies)
+  } else if (veggies.indexOf(veggie) > -1) {
+    console.log(veggie + ' already exists in the veggies collection.')
+  }
 }
 
-var veggies = ['potato', 'tomato', 'chillies', 'green-pepper'];
+var veggies = ['potato', 'tomato', 'chillies', 'green-pepper']
 
-updateVegetablesCollection(veggies, 'spinach'); 
+updateVegetablesCollection(veggies, 'spinach')
 // New veggies collection is : potato,tomato,chillies,green-pepper,spinach
-updateVegetablesCollection(veggies, 'spinach'); 
+updateVegetablesCollection(veggies, 'spinach')
 // spinach already exists in the veggies collection.
 ```
