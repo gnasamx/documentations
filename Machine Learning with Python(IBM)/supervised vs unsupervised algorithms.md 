@@ -1,0 +1,5 @@
+The biggest difference between supervised, and unsupervised learning is that supervised learning deals with 
+labeled data while unsupervised learning deals with unlabeled data. In supervised learning, we have machine 
+learning algorithms for classification, and regression. In unsupervised learning, we have methods such as 
+clustering.In comparison to supervised learning, unsupervised learning has fewer models, and fewer evaluation
+methods that can be used to ensure that the outcome of the model is accurate.
