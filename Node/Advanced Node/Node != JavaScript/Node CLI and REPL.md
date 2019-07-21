@@ -9,10 +9,10 @@ false
 > 
 ```
 
-One of the mode useful feature of Node's REPL is Autocomplete. Just press double `tab` and you will get a big list commands which will be equivalent to `global.<press tab here>`.     
+One of the most useful feature of Node's REPL is Autocomplete. Just press double `tab` and you will get a big list commands which will be equivalent to `global.<press tab here>`.     
 
 ## Special commands
-Node has some special commands that begins with `.` (Dot). So `.<press double tab here>` will give your all those commands.
+Node has some special commands that begins with `.` (Dot). So `.<press double tab here>` will give you all those commands.
 
 ```bash
 > .
