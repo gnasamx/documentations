@@ -18,7 +18,7 @@ Libuv is c library developed for Node, but it's now use by languages like Rust, 
 
 ### Node dependencies
 
-**http-parser**:http-parser is small c library used for parsing HTTP messages. It works for both request and response and it's designed to have a very small pre-request memory footprint.
+**http-parser**: http-parser is small c library used for parsing HTTP messages. It works for both request and response and it's designed to have a very small pre-request memory footprint.
 
 **c-ares**: c-ares what enables performing asynchronous DNS queries.
 
