@@ -252,3 +252,52 @@ About to exist with a code: 1
 ```
 
 So here when process exits, exit event handler will invoked.
+
+## Buffer
+
+The `Buffer` class also available on `global` object, is used heavily in Node to work with binary streams of data. A buffer is essentially a chunk of memory allocated outside of v8 heap, and we can put some data in that memory and that data is interpreted in one of many ways, depending on the length of character, for example. That's why when there is buffer, there is character encoding, because whatever we place in buffer does not have any character encoding, so to read it, we need to specify  an encoding. When we read content from files or socket, if we don't specify encoding we get back a buffer object. So a buffer is a lower-level data structure to represent a sequence of binary data, and unlike arrays, once a buffer is allocated, it can't be resized.
+
+```js
+Ganeshs-MacBook-Air:~ ganesh$ node
+Welcome to Node.js v12.4.0.
+Type ".help" for more information.
+> buffer
+{
+  Buffer: [Function: Buffer] {
+    poolSize: 8192,
+    from: [Function: from],
+    of: [Function: of],
+    alloc: [Function: alloc],
+    allocUnsafe: [Function: allocUnsafe],
+    allocUnsafeSlow: [Function: allocUnsafeSlow],
+    isBuffer: [Function: isBuffer],
+    compare: [Function: compare],
+    isEncoding: [Function: isEncoding],
+    concat: [Function: concat],
+    byteLength: [Function: byteLength],
+    [Symbol(kIsEncodingSymbol)]: [Function: isEncoding]
+  },
+  SlowBuffer: [Function: SlowBuffer],
+  transcode: [Function: transcode],
+  kMaxLength: 2147483647,
+  kStringMaxLength: 1073741799,
+  constants: { MAX_LENGTH: 2147483647, MAX_STRING_LENGTH: 1073741799 },
+  INSPECT_MAX_BYTES: [Getter/Setter]
+}
+```
+
+ We can create buffer on one of three major ways: `alloc()` creates a filled buffer of certain size.
+ 
+ ```js
+> Buffer.alloc(8);
+<Buffer 00 00 00 00 00 00 00 00>
+ ```
+
+ While `allocUnsafe()` will not fill the created buffer. So that might contain old or sensitive data, and need to be filled right away. To fill a buffer we can use `fill()`.
+
+```js
+> Buffer.allocUnsafe(8).fill()
+<Buffer 00 00 00 00 00 00 00 00>
+```
+
+We can also create buffer from `from()` 
