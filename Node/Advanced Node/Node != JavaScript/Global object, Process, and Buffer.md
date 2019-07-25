@@ -63,7 +63,6 @@ Ganeshs-MacBook-Air:Desktop ganesh$ node index.js
 
 Two of the important things that are available on global object in a normal script are the `process` object and `buffer` object.
 
-
 ## Process
 
 The Node's `process` object provides bridge between the Node application and it's running environment.
@@ -257,47 +256,82 @@ So here when process exits, exit event handler will invoked.
 
 The `Buffer` class also available on `global` object, is used heavily in Node to work with binary streams of data. A buffer is essentially a chunk of memory allocated outside of v8 heap, and we can put some data in that memory and that data is interpreted in one of many ways, depending on the length of character, for example. That's why when there is buffer, there is character encoding, because whatever we place in buffer does not have any character encoding, so to read it, we need to specify  an encoding. When we read content from files or socket, if we don't specify encoding we get back a buffer object. So a buffer is a lower-level data structure to represent a sequence of binary data, and unlike arrays, once a buffer is allocated, it can't be resized.
 
-```js
-Ganeshs-MacBook-Air:~ ganesh$ node
-Welcome to Node.js v12.4.0.
-Type ".help" for more information.
-> buffer
-{
-  Buffer: [Function: Buffer] {
-    poolSize: 8192,
-    from: [Function: from],
-    of: [Function: of],
-    alloc: [Function: alloc],
-    allocUnsafe: [Function: allocUnsafe],
-    allocUnsafeSlow: [Function: allocUnsafeSlow],
-    isBuffer: [Function: isBuffer],
-    compare: [Function: compare],
-    isEncoding: [Function: isEncoding],
-    concat: [Function: concat],
-    byteLength: [Function: byteLength],
-    [Symbol(kIsEncodingSymbol)]: [Function: isEncoding]
-  },
-  SlowBuffer: [Function: SlowBuffer],
-  transcode: [Function: transcode],
-  kMaxLength: 2147483647,
-  kStringMaxLength: 1073741799,
-  constants: { MAX_LENGTH: 2147483647, MAX_STRING_LENGTH: 1073741799 },
-  INSPECT_MAX_BYTES: [Getter/Setter]
-}
+``` js
+Ganeshs - MacBook - Air: ~ganesh$ node
+Welcome to Node.js v12 .4 .0.
+Type ".help"
+for more information. >
+    buffer {
+        Buffer: [Function: Buffer] {
+            poolSize: 8192,
+            from: [Function: from],
+            of: [Function: of ],
+            alloc: [Function: alloc],
+            allocUnsafe: [Function: allocUnsafe],
+            allocUnsafeSlow: [Function: allocUnsafeSlow],
+            isBuffer: [Function: isBuffer],
+            compare: [Function: compare],
+            isEncoding: [Function: isEncoding],
+            concat: [Function: concat],
+            byteLength: [Function: byteLength],
+            [Symbol(kIsEncodingSymbol)]: [Function: isEncoding]
+        },
+        SlowBuffer: [Function: SlowBuffer],
+        transcode: [Function: transcode],
+        kMaxLength: 2147483647,
+        kStringMaxLength: 1073741799,
+        constants: {
+            MAX_LENGTH: 2147483647,
+            MAX_STRING_LENGTH: 1073741799
+        },
+        INSPECT_MAX_BYTES: [Getter / Setter]
+    }
 ```
 
- We can create buffer on one of three major ways: `alloc()` creates a filled buffer of certain size.
+ We can create buffer using one of three major ways: `alloc()` creates a filled buffer of certain size.
  
- ```js
-> Buffer.alloc(8);
-<Buffer 00 00 00 00 00 00 00 00>
- ```
+ 
 
- While `allocUnsafe()` will not fill the created buffer. So that might contain old or sensitive data, and need to be filled right away. To fill a buffer we can use `fill()`.
+``` js
 
-```js
-> Buffer.allocUnsafe(8).fill()
-<Buffer 00 00 00 00 00 00 00 00>
+> Buffer.alloc(8); <
+
+Buffer 00 00 00 00 00 00 00 00 >
 ```
 
-We can also create buffer from `from()` 
+ While `allocUnsafe()` will not fill the created buffer. So that might contain old or sensitive data, and need to be filled right away. To fill a buffer we can use `fill()` .
+
+``` js
+
+> Buffer.allocUnsafe(8).fill() <
+
+    Buffer 00 00 00 00 00 00 00 00 >
+```
+
+We can also create buffer from `from()` method.
+
+buffer.js
+
+``` js
+const string = 'NodeJs';
+const buffer = Buffer.from('NodeJs');
+
+console.log(string, string.length);
+console.log(buffer, buffer.length);
+```
+
+output
+
+``` bash
+Ganeshs-MacBook-Air:Desktop ganesh$ node buffer.js 
+NodeJs 6
+<Buffer 4e 6f 64 65 4a 73> 6
+```
+
+Buffers are useful when  we need to read the image file from tcp stream or compressed file or any other form of binary data access. Just like arrays and strings, on Buffers when can use operations like, includes, indexOf, and slice, but there are some differences with these methods when we use them on buffers. 
+for examples, when we do slice operation on buffer, the sliced buffer shared the same memory with original buffer.
+
+**StringDecoder**
+
+When converting streams of binary data, we should use the `StringDecoder` module, because it handler multi-byte characters much better, especially incomplete multi-byte characters. The `StringDecoder` preserves the incomplete encoded characters internally until it's complete, and then it returns the result. The default toString operation on buffer does not do that.
+
